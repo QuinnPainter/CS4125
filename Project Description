@@ -1,0 +1,17 @@
+Food Ordering Screen
+Our project is a food ordering system in which you do not have to interact with an employee for the majority of the time. This would drastically cut down on the time
+customers spend ordering food. This then allows the restaurant to serve more orders per day, which results in more profit. This also reduces the number of employees
+needed in the restaurant, as you can just focus on employees preparing the food, and the employees serving the food. We took inspiration from the menu screens at 
+McDonalds, which have been a huge success.
+
+The program assigns each person with a unique identification number to diffrentiate between customers. This will allow us to apply various discounts and promotions to 
+each customer.
+
+It is a screen which displays all the items available on the menu, such as food, drink, meals, deserts etc. There is lots of functionality contained within our project.
+You will have the ability to choose the language you would like the menu to be in, you can add food to your basket, delete food from your basket. You can apply
+discount codes while paying for your food. You can customise your order, such as removing onions from your burger, or adding extra bacon. The program will also have 
+a customer retention function, where it tracks how often you order from the store. Depending on how often you visit, you may be entitled to some prize such as a free
+coffee, or a discount code etc. 
+
+There will also be log ins for an employee, and for a manager. The employee will be able to update the stock on the screen, and to update the price of an item. The 
+manager will be able to add items and delete items from the menu, and to apply promotions to a specific item on the menu. 
