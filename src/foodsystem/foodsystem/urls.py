@@ -17,6 +17,7 @@ from django.contrib import admin
 from django.urls import path
 
 import foodsystem_app.views.menu
+stuff
 
 urlpatterns = [
     path('admin/', admin.site.urls),
