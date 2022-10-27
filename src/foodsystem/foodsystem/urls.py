@@ -16,9 +16,9 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 
-import foodsystem_app.views
+import foodsystem_app.views.menu
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', foodsystem_app.views.order)
+    path('', foodsystem_app.views.menu.MenuView.as_view())
 ]
