@@ -25,10 +25,10 @@ class MenuProduct(MenuItem): #leaf
 
         
         #burgerscategory.add(burger)
-        def getproduct(): 
-            print("Product:")
-            print(self)
-            return self
+    def getproduct(self,name): 
+        print(self,name)
+
+            
 
 class MenuCategory(MenuItem): #composite
         #all this does is call getproduct on all its child objects
@@ -41,7 +41,11 @@ class MenuCategory(MenuItem): #composite
              for x in MENU:
                 return x
                 
-burger = MenuItem  
+burger = MenuProduct("Burger",5,"food")
 burger.getproduct
+
+food = MenuCategory
+food.getproduct
+
 
 
