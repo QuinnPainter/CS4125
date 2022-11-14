@@ -23,7 +23,7 @@ class MenuProduct(MenuItem): #leaf
 
         #this has an implementaon of abstract func where all it does is return itself
 
-        burger = MenuProduct()
+        
         #burgerscategory.add(burger)
         def getproduct(): 
             print("Product:")
@@ -41,5 +41,7 @@ class MenuCategory(MenuItem): #composite
              for x in MENU:
                 return x
                 
-    
+burger = MenuItem  
+burger.getproduct
+
 
