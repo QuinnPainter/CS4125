@@ -1,6 +1,7 @@
 from django.shortcuts import render
 from django.views import View
 from foodsystem_app.models.product import Product
+from abc import abstractmethod
 
 
 MENU = {}
@@ -25,7 +26,9 @@ class MenuProduct(MenuItem): #leaf
         burger = MenuProduct()
         #burgerscategory.add(burger)
         def getproduct(): 
-            return self    
+            print("Product:")
+            print(self)
+            return self
 
 class MenuCategory(MenuItem): #composite
         #all this does is call getproduct on all its child objects
@@ -33,7 +36,10 @@ class MenuCategory(MenuItem): #composite
         #get product function where it just loops through the menu items
         #then calls getproduct in menuproduct on each one
         itemsList = MENU
-        for x in itemsList:
-            getproduct(x)
+
+        def getproduct():
+             for x in MENU:
+                return x
+                
     
 
