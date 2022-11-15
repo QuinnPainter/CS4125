@@ -6,8 +6,8 @@ from abc import abstractmethod, ABC
 class MenuView(View):
     def get(self, request):
         products = Product.objects.all()
-        return render(request, 'order.html', {'products':products})
-
+        return render(request, 'mainmenu.html', {'products':products})
+        
 MENU = []
 current_order = []
 order_price = 0
@@ -54,4 +54,3 @@ coffee = MenuProduct("Coffee",3)
 food = MenuCategory()
 food.addProduct(burger)
 print(food.getproduct())
-
