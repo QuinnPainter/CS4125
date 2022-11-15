@@ -3,6 +3,7 @@ from django.views import View
 from foodsystem_app.models.product import Product
 from abc import abstractmethod, ABC
 
+
 class MenuView(View):
     def get(self, request):
         products = Product.objects.all()
@@ -48,9 +49,26 @@ class MenuCategory(MenuItem): #composite
             
 
 
+def addToCart(MenuProduct):
+    current_order.append(MenuProduct)
+    return current_order
+
+def removeFromCart(MenuProduct):
+    if MenuProduct in current_order:
+        current_order.remove(MenuProduct)
+
+
+
+
 burger = MenuProduct("Burger",5)
 coffee = MenuProduct("Coffee",3)
 
 food = MenuCategory()
 food.addProduct(burger)
 print(food.getproduct())
+
+addToCart(burger)
+print(current_order)
+removeFromCart(burger)
+print(current_order)
+
