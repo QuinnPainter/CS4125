@@ -1,0 +1,20 @@
+table, th, td {
+    border: 1px solid black;
+    border-collapse: collapse;
+  }
+
+  body{
+    background-color:rgba(196, 186, 186, 0.642);
+  }
+
+  .float-container {
+    
+    padding: 20px;
+}
+
+.float-child {
+    width: 50%;
+    float: left;
+    padding: 20px;
+    
+}  
