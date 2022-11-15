@@ -1,5 +1,8 @@
-class DiscountNotifier():
+from abc import ABC, abstractmethod
+
+class DiscountNotifier(ABC):
     # should pass in a Discount and Customer here
+    @abstractmethod
     def update():
         pass
 
