@@ -1,13 +1,17 @@
 from django.shortcuts import render
-from django.views import View
 from foodsystem_app.db.product import Product
 from abc import abstractmethod, ABC
 
-class MenuView(View):
-    def get(self, request):
+class MenuView():
+    def view_menu(request):
         products = Product.objects.all()
         return render(request, 'mainmenu.html', {'products':products})
-        
+
+    def add_to_order(request, id):
+        # Add product with id into basket
+        print(id)
+        return MenuView.view_menu(request)
+
 MENU = []
 current_order = []
 order_price = 0
@@ -45,12 +49,3 @@ class MenuCategory(MenuItem): #composite
 
         def addProduct(self,item):
             self.itemsList.append(item)
-            
-
-
-burger = MenuProduct("Burger",5)
-coffee = MenuProduct("Coffee",3)
-
-food = MenuCategory()
-food.addProduct(burger)
-print(food.getproduct())

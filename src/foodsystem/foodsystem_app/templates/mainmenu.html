@@ -20,7 +20,9 @@
             <div class="item">
                 <img src="C:\Users\35386\Downloads\burger-on-a-wooden-backgound.jpg">
                 <h4>{{product.name}}</h4>
-                <button>Order</button>
+                <form>
+                    <button type="submit" formaction="{% url 'add_to_order' id=product.id %}">Order</button>
+                </form>
             </div>
             {% endfor %}            
         </section>
