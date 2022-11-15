@@ -1,4 +1,4 @@
-from foodsystem_app.models.product import Product
+from foodsystem_app.db.product import Product
 
 class Product_Queries():
     ''' 
@@ -10,9 +10,11 @@ class Product_Queries():
 
     def create_product(name, price):
         print("I was here")
-        product = Product(name, price)
+        product = Product()
+        product.name = name
+        product.price = price
         product.save()
-        print(product.name + ' ' +  "added !")
+        print(product.name + " added !")
 
     def get_all_products_list():
         return Product.object.all()

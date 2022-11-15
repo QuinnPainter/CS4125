@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from django.views import View
-from foodsystem_app.models.product import Product
+from foodsystem_app.db.product import Product
 
 class MenuView(View):
     def get(self, request):
