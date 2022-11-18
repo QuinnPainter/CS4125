@@ -3,7 +3,6 @@
 #Show basket
 #Show total price
 
-#Could put payment options here or in its own file
 import time
 
 def paymentSys():
