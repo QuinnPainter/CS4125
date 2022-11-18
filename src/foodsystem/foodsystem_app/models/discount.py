@@ -25,7 +25,7 @@ class DiscountedPrice(Price):
     It has a variable 'basic_price',
     which is the basic price that is passed in which
     is going to be discounted by the get_price method
-    e.g.
+    
                   (* 0.5)           (* 0.8)
             4.0      <-    8.00        <-   10.00
     BirthdayDiscount(ManicMondayDiscount(my_basic_price))
