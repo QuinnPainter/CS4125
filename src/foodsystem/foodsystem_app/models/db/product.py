@@ -1,4 +1,4 @@
-from django.db import models
+from django.models.db import models
 
 class Product(models.Model):
     id = models.AutoField(primary_key=True)

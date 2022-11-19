@@ -1,4 +1,4 @@
-from foodsystem_app.db.product import Product
+from foodsystem_app.models.db.product import Product
 
 class Product_Queries():
     ''' 
