@@ -17,8 +17,10 @@ from django.contrib import admin
 from django.urls import path
 
 import foodsystem_app.views.menu
+import foodsystem_app.views.payment
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', foodsystem_app.views.menu.MenuView.as_view())
+    path('', foodsystem_app.views.menu.MenuView.as_view()),
+    path('payment', foodsystem_app.views.payment.PaymentView.as_view())
 ]
