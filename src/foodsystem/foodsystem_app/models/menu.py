@@ -37,3 +37,27 @@ class MenuCategory(MenuItem): #composite
 
         def addProduct(self,item):
             self.itemsList.append(item)
+
+def addToCart(MenuProduct):
+    current_order.append(MenuProduct)
+    return current_order
+
+def removeFromCart(MenuProduct):
+    if MenuProduct in current_order:
+        current_order.remove(MenuProduct)
+
+
+
+
+burger = MenuProduct("Burger",5)
+coffee = MenuProduct("Coffee",3)
+
+food = MenuCategory()
+food.addProduct(burger)
+print(food.getproduct())
+
+addToCart(burger)
+print(current_order)
+removeFromCart(burger)
+print(current_order)
+
