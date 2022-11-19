@@ -21,6 +21,6 @@ import foodsystem_app.views.payment
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', foodsystem_app.views.menu.MenuView.as_view()),
-    path('payment', foodsystem_app.views.payment.PaymentView.as_view())
+    path('', foodsystem_app.views.menu.MenuView.view_menu),
+    path('add_to_order/<int:id>/', foodsystem_app.views.menu.MenuView.add_to_order, name='add_to_order')
 ]
