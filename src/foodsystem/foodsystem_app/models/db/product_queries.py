@@ -19,10 +19,11 @@ class Product_Queries():
     def get_all_products_list():
         return Product.object.all()
 
+    def get_product_by_id(id):
+        product = Product.objects.filter(id = id)
+        return product[0]
+
     def get_product(self, prodName):
-        products = self.get_all_products_list()
-        for p in products:
-            print(p.name)
         product = Product.objects.filter(name = prodName)
         return product[0]
 

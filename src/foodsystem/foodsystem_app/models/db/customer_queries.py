@@ -28,12 +28,9 @@ class Customer_Queries():
     def get_all_customer_list():
         return Customer.object.all()
 
-    def get_customer_obj(self, customerId):
-        customers = self.get_all_customer_list()
-        for p in customers:
-            print(p.id)
+    def get_customer_obj(customerId):
         customer = Customer.objects.filter(id = customerId)
-        return customer
+        return customer[0]
 
     def get_customer_email(customerId):
         customer = Customer.objects.filter(id = customerId)
@@ -53,5 +50,5 @@ class Customer_Queries():
             print("This email already exists, please use different email")
         else:
             Customer.objects.filter(id = customerId).update(email = newEmail)
-            print("Customer with " + customerId "ID "+ "email changed !")
+            print("Customer with " + customerId + "ID "+ "email changed !")
 
