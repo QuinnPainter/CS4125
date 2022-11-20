@@ -1,4 +1,3 @@
-import time
 from django.shortcuts import render
 from foodsystem_app.models.db.product import Product
 from foodsystem_app.models.db.order import Order
@@ -18,7 +17,8 @@ class MenuView():
         return MenuView.view_menu(request)
     
     def remove_from_order(request, id):
-        MenuView.current_seletected_products_ids.remove(id)
+        if MenuView.current_seletected_products_ids:
+            MenuView.current_seletected_products_ids.remove(id)
         return MenuView.view_menu(request)
 
     # Not sure if its going in here or checkout but it is working
