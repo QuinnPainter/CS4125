@@ -23,6 +23,12 @@
                 <form>
                     <button type="submit" formaction="{% url 'add_to_order' id=product.id %}">Order</button>
                 </form>
+                <form>
+                    <button type="submit" formaction="{% url 'remove_from_order' id=product.id %}">Remove</button>
+                </form>
+                <form>
+                    <button type="submit" formaction="{% url 'store_order' %}">Store order</button>
+                </form>
             </div>
             {% endfor %}            
         </section>
