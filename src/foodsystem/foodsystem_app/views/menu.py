@@ -1,4 +1,3 @@
-import time
 from django.shortcuts import render
 from foodsystem_app.models.db.product import Product
 from foodsystem_app.models.db.order import Order
