@@ -12,5 +12,8 @@ class Basket():
     def addProduct(self, prod):
         self.productList.append(prod)
 
+    def removeProduct(self, prod):
+        self.productList.remove(prod)
+
     def getProducts(self):
         return self.productList

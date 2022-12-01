@@ -8,8 +8,6 @@ from foodsystem_app.models.menu import Menu
 from foodsystem_app.models.basket import Basket
 
 class MenuView():
-    current_seletected_products_ids = []
-
     def view_menu(request):
         menu = Menu.getMenu()
         products = menu.getProducts()
@@ -17,12 +15,9 @@ class MenuView():
 
     def add_to_order(request, id):
         Basket.instance().addProduct(ProductQueries.get_product_by_id(id))
-        MenuView.current_seletected_products_ids.append(id)
         return MenuView.view_menu(request)
     
     def remove_from_order(request, id):
-        if MenuView.current_seletected_products_ids:
-            MenuView.current_seletected_products_ids.remove(id)
         return MenuView.view_menu(request)
 
     # Not sure if its going in here or checkout but it is working
