@@ -2,14 +2,16 @@ from django.shortcuts import render
 from foodsystem_app.models.db.product import Product
 from foodsystem_app.models.db.order import Order
 from foodsystem_app.models.db.customer import Customer
-from foodsystem_app.models.db.product_queries import Product_Queries
-from foodsystem_app.models.db.customer_queries import Customer_Queries
+from foodsystem_app.models.db.product_queries import ProductQueries
+from foodsystem_app.models.db.customer_queries import CustomerQueries
+from foodsystem_app.models.menu import Menu
 
 class MenuView():
     current_seletected_products_ids = []
 
     def view_menu(request):
-        products = Product.objects.all()
+        menu = Menu.getMenu()
+        products = menu.getProducts()
         return render(request, 'mainmenu.html', {'products':products})
 
     def add_to_order(request, id):
@@ -30,14 +32,14 @@ class MenuView():
         order.completed = True
         order.paymentMethod = "Cash"
         order.discounts = 2.0
-        customer = Customer_Queries.get_customer_obj(2)
+        customer = CustomerQueries.get_customer_obj(2)
         order.customer = customer
         # Save is done before add products code below for a reason
         # ie it will error out as this order object is not present
         # and order.products.add will give error
         order.save()
         for id in MenuView.current_seletected_products_ids:
-            prod = Product_Queries.get_product_by_id(id)
+            prod = ProductQueries.get_product_by_id(id)
             order.products.add(prod)
         #order.save()
         MenuView.current_seletected_products_ids.clear()

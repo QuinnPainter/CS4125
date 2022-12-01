@@ -1,6 +1,6 @@
 from foodsystem_app.models.db.customer import Customer
 
-class Customer_Queries():
+class CustomerQueries():
     ''' 
     This class is built to take in all the 
     Customer class queries made in views

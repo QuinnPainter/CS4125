@@ -20,9 +20,10 @@
         <section class="items">
             {% for product in products %}
             <div class="item">
-                <img src="C:\Users\35386\Downloads\burger-on-a-wooden-backgound.jpg">
+                <img src="{{product.image}}">
                 <h4>{{product.name}}</h4>
                 <form>
+                    <p style="text-align: center"}>{{product.price}}</p>
                     <button type="submit" formaction="{% url 'add_to_order' id=product.id %}">Order</button>
                 </form>
                 <form>

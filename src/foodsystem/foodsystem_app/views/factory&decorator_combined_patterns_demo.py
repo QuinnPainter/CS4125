@@ -1,5 +1,5 @@
 from abc import abstractmethod
-from foodsystem_app.models.db.product_queries import Product_Queries
+from foodsystem_app.models.db.product_queries import ProductQueries
 
 '''
 Code below shows both Factory and Decorator patterns combined
@@ -16,7 +16,7 @@ class Food():
 class ConcreteFood(Food):
     def __init__(self, food_name):
         self.name = food_name
-        self.price = Product_Queries.get_product_price(food_name)
+        self.price = ProductQueries.get_product_price(food_name)
     def get_price(self):
         return self.price
     def get_name(self):

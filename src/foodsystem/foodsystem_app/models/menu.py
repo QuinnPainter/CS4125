@@ -1,63 +1,69 @@
 from abc import abstractmethod, ABC
-
-MENU = []
-current_order = []
-order_price = 0
-
+from foodsystem_app.models.db.product_queries import ProductQueries
         
-class MenuItem(ABC): #component
-    #abstract function for get products
+class MenuComponent(ABC):
     @abstractmethod
-    def getproduct():
+    def getProducts():
         return
-        
-class MenuProduct(MenuItem): #leaf
-    def __init__(self, name, price):
+
+    @abstractmethod
+    def findComponentByName():
+        return
+
+# represents a product eg. burger
+class MenuLeaf(MenuComponent):
+    def __init__(self, id, name, price, image):
+        self.id = id
         self.name = name
         self.price = price
+        self.image = image
 
-        #this has an implementaon of abstract func where all it does is return itself
-        #burgerscategory.add(burger)
-    def getproduct(self): 
-        return self    
+    def getProducts(self):
+        return [self]
 
-class MenuCategory(MenuItem): #composite
-        #all this does is call getproduct on all its child objects
-        #this has a list of menu items in it
-        #get product function where it just loops through the menu items
-        #then calls getproduct in menuproduct on each one
-        def __init__(self):
-            self.itemsList = MENU
+    def findComponentByName(self, name):
+        if self.name == name:
+            return self
+        else:
+            return None
 
-        def getproduct(self):
-            products = []
-            for x in self.itemsList:
-                products.append(x.getproduct())           
-            return products
+# represents a category eg. drinks
+class MenuComposite(MenuComponent):
+    def __init__(self, name):
+        self.name = name
+        self.itemsList = []
 
-        def addProduct(self,item):
-            self.itemsList.append(item)
+    def getProducts(self):
+        products = []
+        for x in self.itemsList:
+            products += x.getProducts()
+        return products
 
-def addToCart(MenuProduct):
-    current_order.append(MenuProduct)
-    return current_order
+    def addProduct(self, item):
+        self.itemsList.append(item)
 
-def removeFromCart(MenuProduct):
-    if MenuProduct in current_order:
-        current_order.remove(MenuProduct)
+    def getName(self):
+        return self.name
 
+    def findComponentByName(self, name):
+        if name == self.name:
+            return self
+        for p in self.itemsList:
+            if p.findComponentByName(name) is not None:
+                return p
 
+class Menu():
+    def getMenu():
+        rootComposite = MenuComposite("Menu")
 
+        categories = ProductQueries.get_all_categories()
+        for c in categories:
+            newCat = MenuComposite(c.name)
+            rootComposite.addProduct(newCat)
 
-burger = MenuProduct("Burger",5)
-coffee = MenuProduct("Coffee",3)
-
-food = MenuCategory()
-food.addProduct(burger)
-print(food.getproduct())
-
-addToCart(burger)
-print(current_order)
-removeFromCart(burger)
-print(current_order)
-
+        products = ProductQueries.get_all_products_list()
+        for p in products:
+            newProduct = MenuLeaf(p.id, p.name, p.price, p.image)
+            cat = rootComposite.findComponentByName(p.category.name)
+            cat.addProduct(newProduct)
+        return rootComposite
