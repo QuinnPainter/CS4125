@@ -1,9 +1,7 @@
 from django.test import SimpleTestCase
 from django.urls import reverse, resolve
-import foodsystem_app.views.menu 
 from foodsystem_app.views.login_register import register_request, login_request
-from foodsystem_app.views.menu import MenuView 
-
+from foodsystem_app.views.menu import MenuView
 
 class TestUrls(SimpleTestCase):
     def test_register_is_resolved(self):
@@ -20,6 +18,4 @@ class TestUrls(SimpleTestCase):
         url = reverse('store_order')
         print(resolve(url))
         self.assertEquals(resolve(url).func, MenuView.store_order)
-    
-
-
+        
