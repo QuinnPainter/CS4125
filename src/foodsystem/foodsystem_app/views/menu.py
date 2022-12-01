@@ -5,6 +5,7 @@ from foodsystem_app.models.db.customer import Customer
 from foodsystem_app.models.db.product_queries import ProductQueries
 from foodsystem_app.models.db.customer_queries import CustomerQueries
 from foodsystem_app.models.menu import Menu
+from foodsystem_app.models.basket import Basket
 
 class MenuView():
     current_seletected_products_ids = []
@@ -15,6 +16,7 @@ class MenuView():
         return render(request, 'mainmenu.html', {'products':products})
 
     def add_to_order(request, id):
+        Basket.instance().addProduct(ProductQueries.get_product_by_id(id))
         MenuView.current_seletected_products_ids.append(id)
         return MenuView.view_menu(request)
     
