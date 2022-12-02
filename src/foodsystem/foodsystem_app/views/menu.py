@@ -18,6 +18,7 @@ class MenuView():
         return MenuView.view_menu(request)
     
     def remove_from_order(request, id):
+        Basket.instance().removeProduct(ProductQueries.get_product_by_id(id))
         return MenuView.view_menu(request)
 
     # Not sure if its going in here or checkout but it is working
