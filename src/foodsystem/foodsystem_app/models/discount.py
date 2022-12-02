@@ -1,97 +1,72 @@
-class Price():
-    """
-    Interface for getting a price
-    """
+import six
+from abc import ABCMeta
+from decimal import Decimal
 
-    def get_price(self):
-        pass
+@six.add_metaclass(ABCMeta)
+class Abstract_Price(object):
 
-class BasicPrice(Price):
-    """
-    Implements interface Price
-    This is a basic price with no discount applied
-    """
+   def get_price(self):
+      pass
 
-    _price = 10.00
+class Concrete_Price(Abstract_Price):
+   def __init__(self, price):
+      self.price = price
+      
+   def get_price(self):
+      return self.price
 
-    def get_price(self):
-        return self._price
+@six.add_metaclass(ABCMeta)
+class Abstract_Price_Decorator(Abstract_Price):
+   
+   def __init__(self,decorated_price):
+      self.decorated_price = decorated_price
+   
+   def get_price(self):
+      return self.decorated_price.get_price()
+      
+class FlatDiscount(Abstract_Price_Decorator):
+   
+   def __init__(self,decorated_price, discount_value):
+      Abstract_Price_Decorator.__init__(self,decorated_price)
+      self.discount_value = discount_value
+   
+   def get_price(self):
+      return self.decorated_price.get_price() - self.discount_value
 
+class PercentageDiscount(Abstract_Price_Decorator):
+   def __init__(self,decorated_price, discount_value):
+      Abstract_Price_Decorator.__init__(self,decorated_price)
+      self.discount_value = discount_value
 
-class DiscountedPrice(Price):
-    """
-    Implements interface Price
-    This is the base class for discounted prices.
-    It has a variable 'basic_price',
-    which is the basic price that is passed in which
-    is going to be discounted by the get_price method
-    
-                  (* 0.5)           (* 0.8)
-            4.0      <-    8.00        <-   10.00
-    BirthdayDiscount(ManicMondayDiscount(my_basic_price))
-    """
+   def percentageToNumber(self):
+       return ((self.decorated_price.get_price() * self.discount_value) / 100)
+   
+   def get_price(self):
+      return self.decorated_price.get_price() - self.percentageToNumber()
 
-    def __init__(self, basic_price):
-        self.basic_price = basic_price
+# Factory method + decorator pattern
+def createDiscount(price_before_discount, discount_coupons):
+    decorated_price = Concrete_Price(price_before_discount)
+    # making sure all coupons are in lower case for conditions
+    for coupon in discount_coupons:
+        coupon = coupon.lower()
 
-    def get_price(self):
-        return self.basic_price.get_price()
-
-class ManicMondayDiscount(DiscountedPrice):
-    """
-    This class inherits DiscountedPrice
-    It has its own variable _discount which it applies to
-    basic_price when get_price is called
-    """
-
-    _discount = 0.8
-
-    def __init__(self, basic_price):
-        super().__init__(basic_price)
-
-    def get_price(self):
-        return (self.basic_price.get_price() * self._discount)
-
-class BirthdayDiscount(DiscountedPrice):
-    """
-    This is another class that inherits DiscountedPrice
-    """
-
-    _discount = 0.5
-
-    def __init__(self, basic_price):
-        super().__init__(basic_price)
-
-    def get_price(self):
-        return (self.basic_price.get_price() * self._discount)
-
-def no_discount():
-    """
-    Calling get_price on a BasicPrice simply returns _price
-    """
-    my_price = BasicPrice()
-    print("Price with no discount applied")
-    print(my_price.get_price())
-
-def manic_monday():
-    """
-    Calling get_price on a DiscountedPrice first gets its own basic_price
-    (which could be a BasicPrice with a _price equal to 10.00
-    or it could be another DiscountedPrice with its own basic_price)
-    then it multiplies the _discount variable and returns the discounted price
-    """
-    my_price = BasicPrice()
-    my_price = ManicMondayDiscount(my_price)
-    print("Price on Manic Monday")
-    print(my_price.get_price())
-
-def both():
-    my_price = BasicPrice()
-    my_price = BirthdayDiscount(ManicMondayDiscount(my_price))
-    print("Price on Manic Monday and it's your Birthday")
-    print(my_price.get_price())
-
-if __name__ == '__main__':
-    no_discount()
-    manic_monday()
-    both()
+    # Decorator in action
+    for coupon in discount_coupons:
+        discountType = coupon[0:2]
+        discountValue = coupon[2:4]
+        if(discountType == "fd"):
+            decorated_price = FlatDiscount(decorated_price, Decimal(discountValue))
+        elif(discountType == "pd"):
+            decorated_price = PercentageDiscount(decorated_price, Decimal(discountValue))
+	
+    return decorated_price
+	    
+'''
+code below was to see it working
+discount_coupons = ["fd02", "fd04", "pd10"]
+obj = createDiscount(10, discount_coupons)
+print('Cost: '+str(obj.get_price()))
+output was "Cost: 3.6" which is right
+because 10 - 2 - 4 = 4 then 10 percent of 4 is 0.4 so 4 -0.4 = 3.6
+'''
