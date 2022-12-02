@@ -14,8 +14,8 @@ class TestUrls(SimpleTestCase):
         print(resolve(url))
         self.assertEquals(resolve(url).func, login_request)
 
-    def test_store_order_is_resolved(self):
-        url = reverse('store_order')
+    def test_menu_is_resolved(self):
+        url = reverse('menu')
         print(resolve(url))
-        self.assertEquals(resolve(url).func, MenuView.store_order)
+        self.assertEquals(resolve(url).func, MenuView.view_menu)
         
