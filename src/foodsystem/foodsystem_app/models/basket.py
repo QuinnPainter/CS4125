@@ -13,7 +13,9 @@ class Basket():
         self.productList.append(prod)
 
     def removeProduct(self, prod):
-        self.productList.remove(prod)
+        # If something in basket only then try to remove item
+        if prod in self.productList:
+            self.productList.remove(prod)
 
     def getProducts(self):
         return self.productList
